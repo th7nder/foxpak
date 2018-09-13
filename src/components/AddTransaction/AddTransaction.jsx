@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import TextInput from "./TextInput";
+import Input from "./Input";
 
 const formFields = [
-  { name: "date", desc: "Data" },
+  { name: "date", desc: "Data", type: "date" },
   { name: "company", desc: "Firma" },
   { name: "dimensions", desc: "Wymiary" },
-  { name: "amount", desc: "Ilość" },
-  { name: "grossMargin", desc: "Marża" },
-  { name: "revenue", desc: "Zysk" },
-  { name: "sum", desc: "Suma" }
+  { name: "amount", desc: "Ilość", type: "number" },
+  { name: "grossMargin", desc: "Marża", type: "number" },
+  { name: "revenue", desc: "Zysk", type: "number" },
+  { name: "sum", desc: "Suma", type: "number" }
 ];
 
 const initialState = {
@@ -45,7 +45,7 @@ class AddTransaction extends Component {
   renderFormFields = item => {
     const { [item.name]: value } = this.state;
     return (
-      <TextInput
+      <Input
         key={item.name}
         {...item}
         value={value}
