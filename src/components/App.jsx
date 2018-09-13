@@ -1,6 +1,6 @@
 import React from "react";
 import TransactionsTable from "./TransactionsTable";
-import AddTransaction from "./AddTransaction";
+import AddTransaction from "./AddTransaction/AddTransaction";
 
 const initialState = {
   transactions: []

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import TextInput from "./TextInput";
 
 const formFields = [
   { name: "date", desc: "Data" },
@@ -29,46 +30,40 @@ class AddTransaction extends Component {
     this.state = initialState;
   }
 
-  handleChange(value, prop) {
+  handleSubmit = e => {
+    const { onAddTransaction } = this.props;
+    e.preventDefault();
+    onAddTransaction({ ...this.state, id: nextItemId });
+    nextItemId += 1;
+    this.setState(initialState);
+  };
+
+  handleChange = (value, prop) => {
     this.setState({ [prop]: value });
-  }
+  };
+
+  renderFormFields = item => {
+    const { [item.name]: value } = this.state;
+    return (
+      <TextInput
+        key={item.name}
+        {...item}
+        value={value}
+        onChange={this.handleChange}
+      />
+    );
+  };
 
   render() {
-    const { onAddTransaction } = this.props;
     return (
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          onAddTransaction({ ...this.state, id: nextItemId });
-          nextItemId += 1;
-          this.setState(initialState);
-        }}
-      >
-        {formFields.map(item => {
-          const { [item.name]: value } = this.state;
-
-          return (
-            <p key={item.name}>
-              <label htmlFor={item.name}>
-                {item.desc}
-                <input
-                  type={item.name}
-                  name={item.name}
-                  id={item.name}
-                  onChange={e => {
-                    this.handleChange(e.target.value, item.name);
-                  }}
-                  value={value}
-                />
-              </label>
-            </p>
-          );
-        })}
+      <form onSubmit={this.handleSubmit}>
+        {formFields.map(this.renderFormFields)}
         <button type="submit">Dodaj transakcje</button>
       </form>
     );
   }
 }
+
 AddTransaction.propTypes = {
   onAddTransaction: PropTypes.func.isRequired
 };
