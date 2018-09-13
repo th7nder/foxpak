@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormGroup, InputGroup } from "@blueprintjs/core";
 
 class Input extends React.Component {
   handleChange = e => {
@@ -12,19 +13,12 @@ class Input extends React.Component {
   };
 
   render() {
-    const { name, desc, value, type } = this.props;
+    const { name, desc, value } = this.props;
     return (
       <p>
-        <label htmlFor={name}>
-          {desc}
-          <input
-            type={type}
-            name={name}
-            id={name}
-            value={value}
-            onChange={this.handleChange}
-          />
-        </label>
+        <FormGroup label={desc} labelFor={name}>
+          <InputGroup id={name} onChange={this.handleChange} value={value} />
+        </FormGroup>
       </p>
     );
   }

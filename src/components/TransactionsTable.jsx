@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { HTMLTable } from "@blueprintjs/core";
 
 const TransactionsTable = ({ transactions }) => (
-  <table>
+  <HTMLTable>
     <thead>
       <tr>
         <th>Data</th>
@@ -23,7 +24,7 @@ const TransactionsTable = ({ transactions }) => (
         </tr>
       ))}
     </tbody>
-  </table>
+  </HTMLTable>
 );
 
 TransactionsTable.propTypes = {
