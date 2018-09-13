@@ -21,7 +21,9 @@ const initialState = {
   sum: ""
 };
 
-class AddItem extends Component {
+let nextItemId = 0;
+
+class AddTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
@@ -32,12 +34,13 @@ class AddItem extends Component {
   }
 
   render() {
-    const { onAddItem } = this.props;
+    const { onAddTransaction } = this.props;
     return (
       <form
         onSubmit={e => {
           e.preventDefault();
-          onAddItem(this.state);
+          onAddTransaction({ ...this.state, id: nextItemId });
+          nextItemId += 1;
           this.setState(initialState);
         }}
       >
@@ -45,7 +48,7 @@ class AddItem extends Component {
           const { [item.name]: value } = this.state;
 
           return (
-            <p>
+            <p key={item.name}>
               <label htmlFor={item.name}>
                 {item.desc}
                 <input
@@ -66,8 +69,8 @@ class AddItem extends Component {
     );
   }
 }
-AddItem.propTypes = {
-  onAddItem: PropTypes.func.isRequired
+AddTransaction.propTypes = {
+  onAddTransaction: PropTypes.func.isRequired
 };
 
-export default AddItem;
+export default AddTransaction;

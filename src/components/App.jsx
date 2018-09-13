@@ -1,6 +1,6 @@
 import React from "react";
-import Table from "./Table";
-import AddItem from "./AddItem";
+import TransactionsTable from "./TransactionsTable";
+import AddTransaction from "./AddTransaction";
 
 const initialState = {
   transactions: []
@@ -12,21 +12,22 @@ class App extends React.Component {
     this.state = initialState;
   }
 
-  handleAddItem = itemData => {
+  handleAddTransaction = itemData => {
     this.setState(previousState => ({
       transactions: [...previousState.transactions, itemData]
     }));
   };
 
   render() {
+    const { transactions } = this.state;
     return (
       <div>
         <h1>
           <span>Foxpak</span>
         </h1>
         <main>
-          <AddItem onAddItem={this.handleAddItem} />
-          <Table />
+          <AddTransaction onAddTransaction={this.handleAddTransaction} />
+          <TransactionsTable transactions={transactions} />
         </main>
       </div>
     );
