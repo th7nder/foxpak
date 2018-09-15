@@ -7,6 +7,7 @@ const TransactionsTable = ({ transactions }) => (
   <HTMLTable striped>
     <thead>
       <tr>
+        <th>Lp.</th>
         <th>Data</th>
         <th>Firma</th>
         <th>Wymiar</th>
@@ -19,18 +20,16 @@ const TransactionsTable = ({ transactions }) => (
     <tbody>
       {transactions.map(transaction => (
         <tr key={transaction.id}>
-          {Object.keys(transaction)
-            .slice(0, -1)
-            .map(
-              key =>
-                transaction[key] instanceof Date ? (
-                  <td key={key + transaction.id}>
-                    {transaction[key].toLocaleDateString()}
-                  </td>
-                ) : (
-                  <td key={key + transaction.id}>{transaction[key]}</td>
-                )
-            )}
+          {Object.keys(transaction).map(
+            key =>
+              transaction[key] instanceof Date ? (
+                <td key={key + transaction.id}>
+                  {transaction[key].toLocaleDateString()}
+                </td>
+              ) : (
+                <td key={key + transaction.id}>{transaction[key]}</td>
+              )
+          )}
         </tr>
       ))}
     </tbody>
