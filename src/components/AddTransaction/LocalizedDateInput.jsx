@@ -28,6 +28,12 @@ const WEEKDAYS_LONG = [
 
 const WEEKDAYS_SHORT = ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "Sb"];
 
+const dateFormatter = {
+  formatDate: date => date.toLocaleDateString("pl-PL"),
+  parseDate: str => new Date(str),
+  placeholder: "D/M/YYYY"
+};
+
 const localeUtils = {
   formatDay: date => WEEKDAYS_LONG[date.getDay()],
   formatMonthTitle: date => MONTHS[date.getMonth()],
@@ -38,7 +44,7 @@ const localeUtils = {
 };
 
 const LocalizedDateInput = props => (
-  <DateInput localeUtils={localeUtils} {...props} />
+  <DateInput {...dateFormatter} localeUtils={localeUtils} {...props} />
 );
 
 export default LocalizedDateInput;
