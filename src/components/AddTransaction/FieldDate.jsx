@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { DateInput } from "@blueprintjs/datetime";
+import LocalizedDateInput from "./LocalizedDateInput";
 
 class FieldDate extends Component {
   static dateFormatter = {
-    formatDate: date => date.toLocaleDateString(),
+    formatDate: date => date.toLocaleDateString("pl-PL"),
     parseDate: str => new Date(str),
     placeholder: "D/M/YYYY"
   };
@@ -16,7 +16,7 @@ class FieldDate extends Component {
   render() {
     const { value } = this.props;
     return (
-      <DateInput
+      <LocalizedDateInput
         {...FieldDate.dateFormatter}
         onChange={this.handleChange}
         value={value}

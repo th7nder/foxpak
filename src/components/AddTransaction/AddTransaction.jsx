@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { FormGroup } from "@blueprintjs/core";
-import Input from "./Input";
+import { FormGroup, InputGroup } from "@blueprintjs/core";
 import FieldDate from "./FieldDate";
 
 const formFields = [
@@ -43,25 +42,25 @@ class AddTransaction extends Component {
     this.setState({ [prop]: value });
   };
 
-  renderFormFields = item => {
-    const { [item.name]: value } = this.state;
-    return (
-      <Input
-        key={item.name}
-        {...item}
-        value={value}
-        onChange={this.handleChange}
-      />
-    );
-  };
+  renderFormFields = item => (
+    <FormGroup label={item.desc} labelFor={item.name}>
+      <InputGroup id={item.name} />
+    </FormGroup>
+  );
 
   render() {
     const { date } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <FormGroup label="Data">
-          <FieldDate value={date} onChange={this.handleChange} />
+        <FormGroup label="Data" labelFor="date">
+          <FieldDate
+            id="date"
+            name="date"
+            value={date}
+            onChange={this.handleChange}
+          />
         </FormGroup>
+        {formFields.map(this.renderFormFields)}
         <button type="submit">Dodaj transakcje</button>
       </form>
     );

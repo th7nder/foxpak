@@ -26,8 +26,10 @@ class App extends React.Component {
           <span>Foxpak</span>
         </h1>
         <main>
-          <AddTransaction onAddTransaction={this.handleAddTransaction} />
           <TransactionsTable transactions={transactions} />
+          <aside>
+            <AddTransaction onAddTransaction={this.handleAddTransaction} />
+          </aside>
         </main>
       </div>
     );
