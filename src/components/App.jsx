@@ -1,5 +1,5 @@
 import React from "react";
-import { H1 } from "@blueprintjs/core";
+import { Navbar, Alignment } from "@blueprintjs/core";
 import TransactionsTable from "./TransactionsTable";
 import AddTransaction from "./AddTransaction/AddTransaction";
 import "./App.less";
@@ -25,7 +25,12 @@ class App extends React.Component {
     return (
       <div>
         <header>
-          <H1>Foxpak</H1>
+          <Navbar fixedToTop>
+            <Navbar.Group align={Alignment.LEFT}>
+              <Navbar.Heading>Foxpak</Navbar.Heading>
+              <Navbar.Divider />
+            </Navbar.Group>
+          </Navbar>
         </header>
 
         <div className="container">

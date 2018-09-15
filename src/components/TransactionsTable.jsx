@@ -4,7 +4,7 @@ import { HTMLTable } from "@blueprintjs/core";
 import "./TransactionsTable.less";
 
 const TransactionsTable = ({ transactions }) => (
-  <HTMLTable>
+  <HTMLTable striped>
     <thead>
       <tr>
         <th>Data</th>

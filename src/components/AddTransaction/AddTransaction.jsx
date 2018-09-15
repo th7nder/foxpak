@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { FormGroup, InputGroup } from "@blueprintjs/core";
+import { FormGroup, InputGroup, Button } from "@blueprintjs/core";
 import LocalizedDateInput from "./LocalizedDateInput";
 import NumericInputWrapper from "./NumericInputWrapper";
 
@@ -100,7 +100,9 @@ class AddTransaction extends Component {
           />
         </FormGroup>
         {this.renderInputs()}
-        <button type="submit">Dodaj transakcje</button>
+        <Button type="submit" icon="add">
+          Dodaj transakcje
+        </Button>
       </form>
     );
   }
