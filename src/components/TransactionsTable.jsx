@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { HTMLTable } from "@blueprintjs/core";
+import "./TransactionsTable.less";
 
 const TransactionsTable = ({ transactions }) => (
   <HTMLTable>
@@ -18,9 +19,18 @@ const TransactionsTable = ({ transactions }) => (
     <tbody>
       {transactions.map(transaction => (
         <tr key={transaction.id}>
-          {Object.keys(transaction).map(key => (
-            <td key={key + transaction.id}>{transaction[key]}</td>
-          ))}
+          {Object.keys(transaction)
+            .slice(0, -1)
+            .map(
+              key =>
+                transaction[key] instanceof Date ? (
+                  <td key={key + transaction.id}>
+                    {transaction[key].toLocaleDateString()}
+                  </td>
+                ) : (
+                  <td key={key + transaction.id}>{transaction[key]}</td>
+                )
+            )}
         </tr>
       ))}
     </tbody>
@@ -31,7 +41,7 @@ TransactionsTable.propTypes = {
   transactions: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      date: PropTypes.string.isRequired,
+      date: PropTypes.instanceOf(Date),
       company: PropTypes.string.isRequired,
       dimensions: PropTypes.string.isRequired,
       amount: PropTypes.number.isRequired,

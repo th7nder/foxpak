@@ -1,6 +1,8 @@
 import React from "react";
+import { H1 } from "@blueprintjs/core";
 import TransactionsTable from "./TransactionsTable";
 import AddTransaction from "./AddTransaction/AddTransaction";
+import "./App.less";
 
 const initialState = {
   transactions: []
@@ -22,15 +24,18 @@ class App extends React.Component {
     const { transactions } = this.state;
     return (
       <div>
-        <h1>
-          <span>Foxpak</span>
-        </h1>
-        <main>
-          <TransactionsTable transactions={transactions} />
+        <header>
+          <H1>Foxpak</H1>
+        </header>
+
+        <div className="container">
+          <main>
+            <TransactionsTable transactions={transactions} />
+          </main>
           <aside>
             <AddTransaction onAddTransaction={this.handleAddTransaction} />
           </aside>
-        </main>
+        </div>
       </div>
     );
   }
