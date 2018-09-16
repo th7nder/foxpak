@@ -64,7 +64,11 @@ class App extends React.Component {
             />
           </main>
           <aside>
-            <AddTransaction onAddTransaction={this.handleAddTransaction} />
+            <AddTransaction
+              year={year}
+              month={month}
+              onAddTransaction={this.handleAddTransaction}
+            />
           </aside>
         </div>
       </div>

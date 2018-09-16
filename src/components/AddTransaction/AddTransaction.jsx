@@ -91,13 +91,27 @@ class AddTransaction extends Component {
 
   render() {
     const { date } = this.state;
+    const { year, month } = this.props;
+    const maxDate = new Date(
+      year,
+      month,
+      new Date(year, month + 1, 0).getDate()
+    );
+    const minDate = new Date(year, month, 1);
+
+    const validDate =
+      date.getMonth() === month && date.getFullYear() === year
+        ? date
+        : new Date(year, month, date.getDate());
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup label="Data" labelFor="date">
           <LocalizedDateInput
+            minDate={minDate}
+            maxDate={maxDate}
             id="date"
             onChange={this.handleDateChange}
-            value={date}
+            value={validDate}
           />
         </FormGroup>
         {this.renderInputs()}
@@ -110,6 +124,8 @@ class AddTransaction extends Component {
 }
 
 AddTransaction.propTypes = {
+  year: PropTypes.number.isRequired,
+  month: PropTypes.number.isRequired,
   onAddTransaction: PropTypes.func.isRequired
 };
 
