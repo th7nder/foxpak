@@ -1,32 +1,6 @@
 import React from "react";
 import { DateInput } from "@blueprintjs/datetime";
-
-const MONTHS = [
-  "Styczeń",
-  "Luty",
-  "Marzec",
-  "Kwiecień",
-  "Maj",
-  "Czerwiec",
-  "Lipiec",
-  "Sierpień",
-  "Wrzesień",
-  "Październik",
-  "Listopad",
-  "Grudzień"
-];
-
-const WEEKDAYS_LONG = [
-  "Niedziela",
-  "Poniedziałek",
-  "Wtorek",
-  "Środa",
-  "Czwartek",
-  "Piątek",
-  "Sobota"
-];
-
-const WEEKDAYS_SHORT = ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "Sb"];
+import Localization from "../../utils/Localization";
 
 const dateFormatter = {
   formatDate: date => date.toLocaleDateString("pl-PL"),
@@ -35,12 +9,12 @@ const dateFormatter = {
 };
 
 const localeUtils = {
-  formatDay: date => WEEKDAYS_LONG[date.getDay()],
-  formatMonthTitle: date => MONTHS[date.getMonth()],
-  formatWeekdayLong: i => WEEKDAYS_LONG[i],
-  formatWeekdayShort: i => WEEKDAYS_SHORT[i],
+  formatDay: date => Localization.weekdaysLong[date.getDay()],
+  formatMonthTitle: date => Localization.months[date.getMonth()],
+  formatWeekdayLong: i => Localization.weekdaysLong[i],
+  formatWeekdayShort: i => Localization.weekdaysShort[i],
   getFirstDayOfWeek: () => 1,
-  getMonths: () => MONTHS
+  getMonths: () => Localization.months
 };
 
 const LocalizedDateInput = props => (
