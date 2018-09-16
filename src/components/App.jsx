@@ -4,10 +4,12 @@ import TransactionsTable from "./TransactionsTable";
 import AddTransaction from "./AddTransaction/AddTransaction";
 import SelectMonth from "./SelectMonth";
 import "./App.less";
+import SelectYear from "./SelectYear";
 
 const initialState = {
   transactions: [],
-  month: new Date()
+  month: new Date().getMonth(),
+  year: new Date().getFullYear()
 };
 
 class App extends React.Component {
@@ -24,13 +26,20 @@ class App extends React.Component {
 
   handleMonthChange = e => {
     const { value } = e.target;
-    this.setState(previousState => ({
-      month: new Date(previousState.month.getYear(), Number(value))
-    }));
+    this.setState({
+      month: Number(value)
+    });
+  };
+
+  handleYearChange = e => {
+    const { value } = e.target;
+    this.setState({
+      year: Number(value)
+    });
   };
 
   render() {
-    const { transactions, month } = this.state;
+    const { transactions, month, year } = this.state;
     return (
       <div>
         <header>
@@ -40,10 +49,8 @@ class App extends React.Component {
               <Navbar.Divider />
             </Navbar.Group>
             <Navbar.Group align={Alignment.RIGHT}>
-              <SelectMonth
-                value={month.getMonth()}
-                onChange={this.handleMonthChange}
-              />
+              <SelectYear value={year} onChange={this.handleYearChange} />
+              <SelectMonth value={month} onChange={this.handleMonthChange} />
             </Navbar.Group>
           </Navbar>
         </header>
@@ -51,7 +58,8 @@ class App extends React.Component {
         <div className="container">
           <main>
             <TransactionsTable
-              month={month.getMonth()}
+              year={year}
+              month={month}
               transactions={transactions}
             />
           </main>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { HTMLTable } from "@blueprintjs/core";
 import "./TransactionsTable.less";
 
-const TransactionsTable = ({ transactions, month }) => (
+const TransactionsTable = ({ transactions, month, year }) => (
   <HTMLTable striped>
     <thead>
       <tr>
@@ -19,7 +19,11 @@ const TransactionsTable = ({ transactions, month }) => (
     </thead>
     <tbody>
       {transactions
-        .filter(transaction => transaction.date.getMonth() === month)
+        .filter(
+          transaction =>
+            transaction.date.getMonth() === month &&
+            transaction.date.getFullYear() === year
+        )
         .map(transaction => (
           <tr key={transaction.id}>
             {Object.keys(transaction).map(
@@ -51,6 +55,7 @@ TransactionsTable.propTypes = {
       sum: PropTypes.number.isRequired
     })
   ).isRequired,
+  year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired
 };
 

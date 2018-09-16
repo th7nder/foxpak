@@ -37,10 +37,11 @@ class AddTransaction extends Component {
 
   handleSubmit = e => {
     const { onAddTransaction } = this.props;
+    const { date } = this.state;
     e.preventDefault();
     onAddTransaction({ id: nextItemId, ...this.state });
     nextItemId += 1;
-    this.setState(initialState);
+    this.setState({ ...initialState, date });
   };
 
   handleTextChange = e => {
