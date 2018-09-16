@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { HTMLTable } from "@blueprintjs/core";
 import "./TransactionsTable.less";
 
-const TransactionsTable = ({ transactions }) => (
+const TransactionsTable = ({ transactions, month }) => (
   <HTMLTable striped>
     <thead>
       <tr>
@@ -18,20 +18,22 @@ const TransactionsTable = ({ transactions }) => (
       </tr>
     </thead>
     <tbody>
-      {transactions.map(transaction => (
-        <tr key={transaction.id}>
-          {Object.keys(transaction).map(
-            key =>
-              transaction[key] instanceof Date ? (
-                <td key={key + transaction.id}>
-                  {transaction[key].toLocaleDateString()}
-                </td>
-              ) : (
-                <td key={key + transaction.id}>{transaction[key]}</td>
-              )
-          )}
-        </tr>
-      ))}
+      {transactions
+        .filter(transaction => transaction.date.getMonth() === month)
+        .map(transaction => (
+          <tr key={transaction.id}>
+            {Object.keys(transaction).map(
+              key =>
+                transaction[key] instanceof Date ? (
+                  <td key={key + transaction.id}>
+                    {transaction[key].toLocaleDateString()}
+                  </td>
+                ) : (
+                  <td key={key + transaction.id}>{transaction[key]}</td>
+                )
+            )}
+          </tr>
+        ))}
     </tbody>
   </HTMLTable>
 );
@@ -48,7 +50,8 @@ TransactionsTable.propTypes = {
       revenue: PropTypes.number.isRequired,
       sum: PropTypes.number.isRequired
     })
-  ).isRequired
+  ).isRequired,
+  month: PropTypes.number.isRequired
 };
 
 export default TransactionsTable;

@@ -2,10 +2,12 @@ import React from "react";
 import { Navbar, Alignment } from "@blueprintjs/core";
 import TransactionsTable from "./TransactionsTable";
 import AddTransaction from "./AddTransaction/AddTransaction";
+import SelectMonth from "./SelectMonth";
 import "./App.less";
 
 const initialState = {
-  transactions: []
+  transactions: [],
+  month: new Date()
 };
 
 class App extends React.Component {
@@ -20,8 +22,15 @@ class App extends React.Component {
     }));
   };
 
+  handleMonthChange = e => {
+    const { value } = e.target;
+    this.setState(previousState => ({
+      month: new Date(previousState.month.getYear(), Number(value))
+    }));
+  };
+
   render() {
-    const { transactions } = this.state;
+    const { transactions, month } = this.state;
     return (
       <div>
         <header>
@@ -30,12 +39,21 @@ class App extends React.Component {
               <Navbar.Heading>Foxpak</Navbar.Heading>
               <Navbar.Divider />
             </Navbar.Group>
+            <Navbar.Group align={Alignment.RIGHT}>
+              <SelectMonth
+                value={month.getMonth()}
+                onChange={this.handleMonthChange}
+              />
+            </Navbar.Group>
           </Navbar>
         </header>
 
         <div className="container">
           <main>
-            <TransactionsTable transactions={transactions} />
+            <TransactionsTable
+              month={month.getMonth()}
+              transactions={transactions}
+            />
           </main>
           <aside>
             <AddTransaction onAddTransaction={this.handleAddTransaction} />
