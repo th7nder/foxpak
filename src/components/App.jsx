@@ -50,7 +50,11 @@ class App extends React.Component {
             </Navbar.Group>
             <Navbar.Group align={Alignment.RIGHT}>
               <SelectYear value={year} onChange={this.handleYearChange} />
-              <SelectMonth value={month} onChange={this.handleMonthChange} />
+              <SelectMonth
+                value={month}
+                onChange={this.handleMonthChange}
+                currentYear={new Date().getFullYear() === year}
+              />
             </Navbar.Group>
           </Navbar>
         </header>
