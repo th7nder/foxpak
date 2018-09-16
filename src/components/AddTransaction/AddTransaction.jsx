@@ -35,6 +35,22 @@ class AddTransaction extends Component {
     this.state = initialState;
   }
 
+  static getDerivedStateFromProps(props, state) {
+    // When user changes current selected data range update form
+    // date for better UX
+    const { year, month } = props;
+    const { date } = state;
+
+    const validDate =
+      date.getMonth() === month && date.getFullYear() === year
+        ? date
+        : new Date(year, month, date.getDate());
+
+    return {
+      date: validDate
+    };
+  }
+
   handleSubmit = e => {
     const { onAddTransaction } = this.props;
     const { date } = this.state;
@@ -98,11 +114,6 @@ class AddTransaction extends Component {
       new Date(year, month + 1, 0).getDate()
     );
     const minDate = new Date(year, month, 1);
-
-    const validDate =
-      date.getMonth() === month && date.getFullYear() === year
-        ? date
-        : new Date(year, month, date.getDate());
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup label="Data" labelFor="date">
@@ -111,7 +122,7 @@ class AddTransaction extends Component {
             maxDate={maxDate}
             id="date"
             onChange={this.handleDateChange}
-            value={validDate}
+            value={date}
           />
         </FormGroup>
         {this.renderInputs()}
