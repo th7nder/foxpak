@@ -20,6 +20,9 @@
       var message = document.createElement('div');
       message.innerHTML = text;
       container.appendChild(message);
+      if (text === 'Update downloaded' || text === 'Update not available.') {
+        ipcRenderer.send('open-index', 'index');
+      }
     })
   </script>
 </body>

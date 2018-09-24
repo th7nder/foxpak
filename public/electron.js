@@ -16,34 +16,6 @@ const { autoUpdater } = require("electron-updater");
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = "info";
 log.info("App starting...");
-
-//-------------------------------------------------------------------
-// Define the menu
-//
-// THIS SECTION IS NOT REQUIRED
-//-------------------------------------------------------------------
-let template = [];
-if (process.platform === "darwin") {
-  // OS X
-  const name = app.getName();
-  template.unshift({
-    label: name,
-    submenu: [
-      {
-        label: "About " + name,
-        role: "about"
-      },
-      {
-        label: "Quit",
-        accelerator: "Command+Q",
-        click() {
-          app.quit();
-        }
-      }
-    ]
-  });
-}
-
 //-------------------------------------------------------------------
 // Open a window that displays the version
 //
@@ -60,8 +32,7 @@ function sendStatusToWindow(text) {
   win.webContents.send("message", text);
 }
 function createDefaultWindow() {
-  win = new BrowserWindow();
-  win.webContents.openDevTools();
+  win = new BrowserWindow({ width: 1280, height: 720 });
   win.on("closed", () => {
     win = null;
   });
@@ -95,11 +66,12 @@ autoUpdater.on("download-progress", progressObj => {
 autoUpdater.on("update-downloaded", info => {
   sendStatusToWindow("Update downloaded");
 });
+
+ipcMain.on("open-index", () => {
+  win.loadURL(`file://${__dirname}/index.html`);
+});
 app.on("ready", function() {
   // Create the Menu
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
-
   createDefaultWindow();
 });
 app.on("window-all-closed", () => {
@@ -144,6 +116,6 @@ app.on("ready", function() {
 // })
 // autoUpdater.on('download-progress', (progressObj) => {
 // })
-// autoUpdater.on('update-downloaded', (info) => {
-//   autoUpdater.quitAndInstall();
-// })
+autoUpdater.on("update-downloaded", info => {
+  autoUpdater.quitAndInstall();
+});
