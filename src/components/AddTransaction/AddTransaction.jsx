@@ -27,8 +27,6 @@ const initialState = {
   sum: 300
 };
 
-let nextItemId = 1;
-
 class AddTransaction extends Component {
   constructor(props) {
     super(props);
@@ -55,8 +53,7 @@ class AddTransaction extends Component {
     const { onAddTransaction } = this.props;
     const { date } = this.state;
     e.preventDefault();
-    onAddTransaction({ id: nextItemId, ...this.state });
-    nextItemId += 1;
+    onAddTransaction(this.state);
     this.setState({ ...initialState, date });
   };
 

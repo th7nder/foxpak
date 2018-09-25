@@ -18,6 +18,18 @@ const TransactionsTable = ({ transactions, month, year }) => (
       </tr>
     </thead>
     <tbody>
+      <tr className="first-row">
+        <td colSpan="7">Suma wszystkich transakcji</td>
+        <td className="sum">
+          {transactions
+            .filter(
+              transaction =>
+                transaction.date.getMonth() === month &&
+                transaction.date.getFullYear() === year
+            )
+            .reduce((accumulator, curr) => accumulator + curr.sum, 0)}
+        </td>
+      </tr>
       {transactions
         .filter(
           transaction =>

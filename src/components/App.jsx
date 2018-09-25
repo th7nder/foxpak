@@ -9,7 +9,8 @@ import SelectYear from "./SelectYear";
 const initialState = {
   transactions: [],
   month: new Date().getMonth(),
-  year: new Date().getFullYear()
+  year: new Date().getFullYear(),
+  nextTransactionId: 1
 };
 
 class App extends React.Component {
@@ -27,12 +28,21 @@ class App extends React.Component {
 
   handleAddTransaction = itemData => {
     this.setState(previousState => {
-      const transactions = [...previousState.transactions, itemData];
-      const state = { ...this.state, transactions };
+      const newTransaction = {
+        id: previousState.nextTransactionId,
+        ...itemData
+      };
+      const transactions = [...previousState.transactions, newTransaction];
+      const state = {
+        ...this.state,
+        transactions,
+        nextTransactionId: previousState.nextTransactionId + 1
+      };
 
       localStorage.setItem("state", JSON.stringify(state));
       return {
-        transactions
+        transactions,
+        nextTransactionId: previousState.nextTransactionId + 1
       };
     });
   };
