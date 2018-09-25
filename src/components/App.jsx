@@ -15,13 +15,26 @@ const initialState = {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = initialState;
+    this.state =
+      JSON.parse(localStorage.getItem("state"), (key, value) => {
+        if (key === "date") {
+          return new Date(value);
+        }
+
+        return value;
+      }) || initialState;
   }
 
   handleAddTransaction = itemData => {
-    this.setState(previousState => ({
-      transactions: [...previousState.transactions, itemData]
-    }));
+    this.setState(previousState => {
+      const transactions = [...previousState.transactions, itemData];
+      const state = { ...this.state, transactions };
+
+      localStorage.setItem("state", JSON.stringify(state));
+      return {
+        transactions
+      };
+    });
   };
 
   handleMonthChange = e => {
