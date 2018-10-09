@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { HTMLTable } from "@blueprintjs/core";
+import Transaction from "./Transaction";
 import "./TransactionsTable.less";
 
 const TransactionsTable = ({ transactions, month, year }) => (
@@ -15,12 +16,13 @@ const TransactionsTable = ({ transactions, month, year }) => (
         <th>Marża</th>
         <th>Zysk</th>
         <th>Suma</th>
+        <th>Akcja</th>
       </tr>
     </thead>
     <tbody>
       <tr className="first-row">
         <td colSpan="7">Suma wszystkich transakcji</td>
-        <td className="sum">
+        <td colSpan="2" className="sum">
           {transactions
             .filter(
               transaction =>
@@ -37,18 +39,7 @@ const TransactionsTable = ({ transactions, month, year }) => (
             transaction.date.getFullYear() === year
         )
         .map(transaction => (
-          <tr key={transaction.id}>
-            {Object.keys(transaction).map(
-              key =>
-                transaction[key] instanceof Date ? (
-                  <td key={key + transaction.id}>
-                    {transaction[key].toLocaleDateString()}
-                  </td>
-                ) : (
-                  <td key={key + transaction.id}>{transaction[key]}</td>
-                )
-            )}
-          </tr>
+          <Transaction key={transaction.id} data={transaction} />
         ))}
     </tbody>
   </HTMLTable>
