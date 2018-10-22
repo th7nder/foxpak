@@ -4,7 +4,12 @@ import { HTMLTable } from "@blueprintjs/core";
 import Transaction from "./Transaction";
 import "./TransactionsTable.less";
 
-const TransactionsTable = ({ transactions, month, year }) => (
+const TransactionsTable = ({
+  transactions,
+  month,
+  year,
+  onDeleteTransaction
+}) => (
   <HTMLTable striped>
     <thead>
       <tr>
@@ -39,7 +44,11 @@ const TransactionsTable = ({ transactions, month, year }) => (
             transaction.date.getFullYear() === year
         )
         .map(transaction => (
-          <Transaction key={transaction.id} data={transaction} />
+          <Transaction
+            key={transaction.id}
+            data={transaction}
+            onDeleteTransaction={onDeleteTransaction}
+          />
         ))}
     </tbody>
   </HTMLTable>
@@ -59,7 +68,8 @@ TransactionsTable.propTypes = {
     })
   ).isRequired,
   year: PropTypes.number.isRequired,
-  month: PropTypes.number.isRequired
+  month: PropTypes.number.isRequired,
+  onDeleteTransaction: PropTypes.func.isRequired
 };
 
 export default TransactionsTable;

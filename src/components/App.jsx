@@ -34,16 +34,27 @@ class App extends React.Component {
       };
       const transactions = [...previousState.transactions, newTransaction];
       const state = {
-        ...this.state,
+        ...previousState,
         transactions,
         nextTransactionId: previousState.nextTransactionId + 1
       };
 
       localStorage.setItem("state", JSON.stringify(state));
-      return {
-        transactions,
-        nextTransactionId: previousState.nextTransactionId + 1
+      return state;
+    });
+  };
+
+  handleDeleteTransaction = transactionId => {
+    this.setState(previousState => {
+      const state = {
+        ...previousState,
+        transactions: previousState.transactions.filter(
+          transaction => transactionId !== transaction.id
+        )
       };
+
+      localStorage.setItem("state", JSON.stringify(state));
+      return state;
     });
   };
 
@@ -88,6 +99,7 @@ class App extends React.Component {
               year={year}
               month={month}
               transactions={transactions}
+              onDeleteTransaction={this.handleDeleteTransaction}
             />
           </main>
           <aside>
