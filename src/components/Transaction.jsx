@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Button } from "@blueprintjs/core";
 
 class Transaction extends Component {
   handleDelete = () => {
@@ -10,17 +11,16 @@ class Transaction extends Component {
 
   render() {
     const { data } = this.props;
-    const { date, ...restProps } = data;
+    const { id, date, ...restProps } = data;
     return (
       <tr>
+        <td>{id}</td>
         <td>{date.toLocaleDateString()}</td>
         {Object.keys(restProps).map(key => (
           <td key={key}>{restProps[key]}</td>
         ))}
         <td>
-          <button type="submit" onClick={this.handleDelete}>
-            Usuń
-          </button>
+          <Button intent="danger" icon="delete" type="submit" text="Usuń" onClick={this.handleDelete} />
         </td>
       </tr>
     );
