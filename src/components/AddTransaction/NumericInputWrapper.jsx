@@ -3,19 +3,53 @@ import { NumericInput, FormGroup } from "@blueprintjs/core";
 import PropTypes from "prop-types";
 
 class NumericInputWrapper extends Component {
-  handleValueChange = valueAsNumber => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      stringValue: null
+    }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    // ugly hack to allow entering ,. numbers via controlled components
+    const { value } = props;
+    if (state.stringValue === null) {
+      return {
+        stringValue: value.toString()
+      };
+    }
+
+    return {};
+  }
+
+  handleValueChange = (valueAsNumber, valueAsString) => {
     const { name, onChange } = this.props;
-    onChange(name, valueAsNumber);
+    // ugly hack to allow entering ,. numbers via controlled components
+    const regEx = /^\d*[.]?\d{0,3}$/;
+    if (regEx.test(valueAsString)) {
+      onChange(name, parseFloat(valueAsString));
+      this.setState({
+        stringValue: valueAsString
+      })
+    } else {
+      const { stringValue } = this.state;
+      this.setState({
+        stringValue
+      });
+    }
   };
 
+
   render() {
-    const { name, desc, value } = this.props;
+    const { name, desc } = this.props;
+    const { stringValue } = this.state;
     return (
       <FormGroup label={desc} labelFor={name}>
         <NumericInput
+          allowNumericCharactersOnly={false}
           buttonPosition="none"
           id={name}
-          value={value}
+          value={stringValue}
           onValueChange={this.handleValueChange}
           required
         />
