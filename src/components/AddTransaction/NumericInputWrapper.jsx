@@ -25,6 +25,9 @@ class NumericInputWrapper extends Component {
   handleValueChange = (valueAsNumber, valueAsString) => {
     const { name, onChange } = this.props;
     // ugly hack to allow entering ,. numbers via controlled components
+    // 1. stores a valid input string in the state
+    // 2. if currently received input is valid calls the onChange prop to pass the state up
+    // 3. if it is not just rerender the previous input to remove a unwanted character
     const regEx = /^\d*[.]?\d{0,3}$/;
     if (regEx.test(valueAsString)) {
       onChange(name, parseFloat(valueAsString));
