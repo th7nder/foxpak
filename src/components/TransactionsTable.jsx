@@ -20,13 +20,12 @@ const TransactionsTable = ({
         <th>Ilość</th>
         <th>Marża</th>
         <th>Zysk</th>
-        <th>Suma</th>
         <th>Akcja</th>
       </tr>
     </thead>
     <tbody>
       <tr className="first-row">
-        <td colSpan="7">Suma wszystkich transakcji</td>
+        <td colSpan="6">Suma wszystkich transakcji</td>
         <td colSpan="2" className="sum">
           {transactions
             .filter(
@@ -34,7 +33,7 @@ const TransactionsTable = ({
                 transaction.date.getMonth() === month &&
                 transaction.date.getFullYear() === year
             )
-            .reduce((accumulator, curr) => accumulator + curr.sum, 0)}
+            .reduce((accumulator, curr) => accumulator + curr.revenue, 0).toFixed(2)}
         </td>
       </tr>
       {transactions
@@ -64,7 +63,6 @@ TransactionsTable.propTypes = {
       amount: PropTypes.number.isRequired,
       grossMargin: PropTypes.number.isRequired,
       revenue: PropTypes.number.isRequired,
-      sum: PropTypes.number.isRequired
     })
   ).isRequired,
   year: PropTypes.number.isRequired,

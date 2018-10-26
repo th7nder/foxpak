@@ -9,7 +9,6 @@ const inputs = {
     { name: "amount", desc: "Ilość" },
     { name: "grossMargin", desc: "Marża" },
     { name: "revenue", desc: "Zysk" },
-    { name: "sum", desc: "Suma" }
   ],
   text: [
     { name: "company", desc: "Firma" },
@@ -24,7 +23,6 @@ const initialState = {
   amount: 30,
   grossMargin: 0.45,
   revenue: 100,
-  sum: 300
 };
 
 class AddTransaction extends Component {

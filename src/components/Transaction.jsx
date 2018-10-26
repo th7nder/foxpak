@@ -36,7 +36,6 @@ Transaction.propTypes = {
     amount: PropTypes.number.isRequired,
     grossMargin: PropTypes.number.isRequired,
     revenue: PropTypes.number.isRequired,
-    sum: PropTypes.number.isRequired
   }).isRequired,
   onDeleteTransaction: PropTypes.func.isRequired
 };
