@@ -28,7 +28,7 @@ class NumericInputWrapper extends Component {
     // 1. stores a valid input string in the state
     // 2. if currently received input is valid calls the onChange prop to pass the state up
     // 3. if it is not just rerender the previous input to remove a unwanted character
-    const regEx = /^\d*[.]?\d{0,3}$/;
+    const regEx = /^\d*[.]?\d{0,2}$/;
     if (regEx.test(valueAsString)) {
       onChange(name, parseFloat(valueAsString));
       this.setState({
