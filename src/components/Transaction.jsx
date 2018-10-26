@@ -20,7 +20,7 @@ class Transaction extends Component {
           <td key={key}>{restProps[key]}</td>
         ))}
         <td>
-          <Button intent="danger" icon="delete" type="submit" text="Usuń" onClick={this.handleDelete} />
+          <Button icon="edit" type="submit" onClick={this.handleDelete} />
         </td>
       </tr>
     );

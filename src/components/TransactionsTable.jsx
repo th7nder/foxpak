@@ -24,18 +24,6 @@ const TransactionsTable = ({
       </tr>
     </thead>
     <tbody>
-      <tr className="first-row">
-        <td colSpan="6">Suma wszystkich transakcji</td>
-        <td colSpan="2" className="sum">
-          {transactions
-            .filter(
-              transaction =>
-                transaction.date.getMonth() === month &&
-                transaction.date.getFullYear() === year
-            )
-            .reduce((accumulator, curr) => accumulator + curr.revenue, 0).toFixed(2)}
-        </td>
-      </tr>
       {transactions
         .filter(
           transaction =>
@@ -49,6 +37,18 @@ const TransactionsTable = ({
             onDeleteTransaction={onDeleteTransaction}
           />
         ))}
+      <tr className="sum-row">
+        <td colSpan="6">Całkowity zysk: </td>
+        <td colSpan="2" className="sum">
+          {transactions
+            .filter(
+              transaction =>
+                transaction.date.getMonth() === month &&
+                transaction.date.getFullYear() === year
+            )
+            .reduce((accumulator, curr) => accumulator + curr.revenue, 0).toFixed(2)}
+        </td>
+      </tr>
     </tbody>
   </HTMLTable>
 );

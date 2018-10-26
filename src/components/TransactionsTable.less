@@ -4,14 +4,23 @@ table {
   width: 100%;
 }
 
-.first-row td[colspan="6"] {
+.sum-row td[colspan="6"] {
   text-align: right;
 }
 
-.first-row .sum {
+.sum-row .sum {
   font-weight: bold;
 }
 
-.first-row td {
+tr.sum-row td {
   border-bottom: 2px solid @gray3;
+  position: sticky;
+  bottom: 0;
+  background: white !important;
+}
+
+table thead tr th {
+  position: sticky;
+  background: white;
+  top: @pt-navbar-height;
 }
